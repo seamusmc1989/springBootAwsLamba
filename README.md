@@ -11,4 +11,38 @@ Note: This example uses an in-memory H2 database that is created and initialized
 
 ### Build and Deploy
 - To build, run `./gradlew clean build`
+- To setup config in serverless for aws, serverless config credentials --provider aws --key yourApiKey --secret yourSecretKey
 - To deploy, run `serverless deploy`
+
+### User policy permissions for aws account 
+
+- To run serverless you need these permissions.
+  IAMFullAccess
+  AmazonAPIGatewayAdministrator
+  cloudFormationFull (This is a customer policy added)
+  
+### New customer policy added to aws account (cloudFormationFull)
+
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1449904348000",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:CreateStack",
+                "cloudformation:CreateChangeSet",
+                "cloudformation:ListStacks",
+                "cloudformation:UpdateStack",
+                "cloudformation:DescribeChangeSet",
+                "cloudformation:ExecuteChangeSet"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+
+  
+  
